@@ -13,7 +13,6 @@ function Home() {
 
   useEffect(() => {
     if (svgRef.current && user.username) {
-      debugger
       let svg = d3.select(svgRef.current),
         width = 300, 
         height = 300,
@@ -38,7 +37,13 @@ function Home() {
 
       arcs.append("path")
         .attr("fill", (d, i) => color(i))
-        .attr("d", arc);
+        .attr("d", arc)
+        .transition()
+        .duration(2000);
+
+
+      // d3.selectAll("svg")
+      svg.on("mouseover", () => console.log(this))
     }
   });
 
@@ -92,7 +97,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <>
       {welcome()}
       <svg ref={svgRef} width={0} height={0}></svg>
       <form onSubmit={handleUsername}>
@@ -111,7 +116,7 @@ function Home() {
         return <li>{manga.title}</li>
       })} */}
       
-    </div>
+    </>
   );
 };
 
